@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memberships - GymRat</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <aside class="sidebar">
+        <div>
+            <div class="brand">
+                <div class="brand-icon"></div>
+                <span>GymRat</span>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item"><a th:href="@{/}">Overview</a></li>
+                <li class="nav-item"><a th:href="@{/profile}">Profile</a></li>
+                <li class="nav-item"><a th:href="@{/classes}">Classes</a></li>
+                <li class="nav-item"><a th:href="@{/bookings}">Bookings</a></li>
+                <li class="nav-item active"><a th:href="@{/memberships}">Memberships</a></li>
+                <li class="nav-item"><a th:href="@{/ai/feedback}">Feedback AI</a></li>
+            </ul>
+        </div>
+        <div class="user-profile">
+            <strong>John Doe</strong>
+            <small style="display:block; color:var(--text-muted);">Club Manager</small>
+        </div>
+    </aside>
+
+    <main class="content-area">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+            <div>
+                <span class="page-subtitle">MEMBERSHIP PLANS & ENTITLEMENTS</span>
+                <h1 class="page-title">Membership Management</h1>
+                <p style="color:var(--text-muted);">Manage member entitlements, subscription tiers, and freeze states.</p>
+            </div>
+            <a href="#" class="btn btn-primary">+ Add membership plan</a>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <span class="badge badge-active">3 active tiers</span>
+            <span class="badge badge-frozen">1 archived</span>
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Plan Name</th>
+                    <th>Billing Interval</th>
+                    <th>Price</th>
+                    <th>Active Subscribers</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Unlimited monthly</strong></td>
+                    <td>Monthly</td>
+                    <td>$89.00</td>
+                    <td>142</td>
+                    <td><span class="badge badge-active">Active</span></td>
+                    <td style="text-align: right; color: var(--text-muted); cursor: pointer;">•••</td>
+                </tr>
+                <tr>
+                    <td><strong>Student Flex</strong></td>
+                    <td>Monthly</td>
+                    <td>$59.00</td>
+                    <td>64</td>
+                    <td><span class="badge badge-active">Active</span></td>
+                    <td style="text-align: right; color: var(--text-muted); cursor: pointer;">•••</td>
+                </tr>
+                <tr>
+                    <td><strong>Weekend Pass</strong></td>
+                    <td>Weekly</td>
+                    <td>$25.00</td>
+                    <td>12</td>
+                    <td><span class="badge badge-frozen">Archived</span></td>
+                    <td style="text-align: right; color: var(--text-muted); cursor: pointer;">•••</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Feedback Assistant - GymRat AI</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <aside class="sidebar">
+        <div>
+            <div class="brand">
+                <div class="brand-icon"></div>
+                <span>GymRat</span>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item"><a th:href="@{/}">Overview</a></li>
+                <li class="nav-item"><a th:href="@{/profile}">Profile</a></li>
+                <li class="nav-item"><a th:href="@{/classes}">Classes</a></li>
+                <li class="nav-item"><a th:href="@{/bookings}">Bookings</a></li>
+                <li class="nav-item"><a th:href="@{/memberships}">Memberships</a></li>
+                <li class="nav-item active"><a th:href="@{/ai/feedback}">Feedback AI</a></li>
+            </ul>
+        </div>
+        <div class="user-profile">
+            <strong>Jamie Reid</strong>
+            <small style="display:block; color:var(--text-muted);">Club Manager</small>
+        </div>
+    </aside>
+
+    <main class="content-area">
+        <div class="page-header">
+            <span class="page-subtitle">AI WORKSPACE</span>
+            <h1 class="page-title">Class Feedback Assistant</h1>
+            <p style="color:var(--text-muted);">Turn free-text comments into patterns you can verify using Anthropic Claude.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div class="form-card" style="max-width: none;">
+                <h3 style="margin-top: 0; font-size: 1.1rem;">Feedback input</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Paste recent member comments below for analysis.</p>
+                
+                <form th:action="@{/ai/feedback/analyze}" method="post">
+                    <div class="form-group">
+                        <textarea class="form-textarea" name="feedbackText" rows="6" placeholder="Loved Maya's energy, but the 7:30 class felt crowded..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">✨ Analyze feedback</button>
+                </form>
+            </div>
+
+            <div class="form-card" style="max-width: none; background-color: var(--bg-card);">
+                <h3 style="margin-top: 0; font-size: 1.1rem;">Analysis preview</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Themes extracted with verifiable source citations.</p>
+
+                <div style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px; margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600;">
+                        <span>Maya Chen · class energy</span>
+                        <span class="badge badge-active" style="font-size: 0.65rem;">2 mentions</span>
+                    </div>
+                    <p style="font-style: italic; color: var(--text-muted); font-size: 0.85rem; margin: 8px 0 0 0;">“Loved Maya's energy...”</p>
+                </div>
+
+                <div style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600;">
+                        <span>07:30 · capacity concern</span>
+                        <span class="badge badge-frozen" style="font-size: 0.65rem;">1 mention</span>
+                    </div>
+                    <p style="font-style: italic; color: var(--text-muted); font-size: 0.85rem; margin: 8px 0 0 0;">“...the 7:30 class felt crowded.”</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

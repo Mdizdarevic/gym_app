@@ -28,9 +28,100 @@
     </aside>
 
     <main class="content-area">
-        <span class="page-subtitle">DASHBOARD</span>
-        <h1 class="page-title">Club Overview</h1>
-        <p style="color:var(--text-muted);">Welcome back, John. Here is your facility snapshot for today.</p>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+            <div>
+                <span class="page-subtitle">DASHBOARD</span>
+                <h1 class="page-title">Club Overview</h1>
+                <p style="color:var(--text-muted);">Welcome back, John. Here is your facility snapshot for today.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <a th:href="@{/classes/new}" class="btn btn-primary">+ Schedule class</a>
+                <a th:href="@{/bookings}" class="btn" style="color: #ef4444;">Manage bookings</a>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px;">
+            <div style="padding: 18px; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;">
+                <small style="display:block; color:var(--text-muted); margin-bottom: 6px;">TOTAL MEMBERS</small>
+                <strong style="font-size: 1.75rem;" th:text="${totalMembers}">0</strong>
+            </div>
+            <div style="padding: 18px; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;">
+                <small style="display:block; color:var(--text-muted); margin-bottom: 6px;">ACTIVE MEMBERSHIPS</small>
+                <strong style="font-size: 1.75rem;" th:text="${activeMemberships}">0</strong>
+            </div>
+            <div style="padding: 18px; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;">
+                <small style="display:block; color:var(--text-muted); margin-bottom: 6px;">SCHEDULED CLASSES</small>
+                <strong style="font-size: 1.75rem;" th:text="${totalClasses}">0</strong>
+            </div>
+            <div style="padding: 18px; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;">
+                <small style="display:block; color:var(--text-muted); margin-bottom: 6px;">TOTAL BOOKINGS</small>
+                <strong style="font-size: 1.75rem;" th:text="${totalBookings}">0</strong>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 28px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h2 style="font-size: 1.1rem; margin: 0;">Scheduled Classes</h2>
+                <a th:href="@{/classes}" style="font-size: 0.9rem; color: #ef4444; text-decoration: none;">View all classes →</a>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Instructor</th>
+                        <th>Starts At</th>
+                        <th>Capacity</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(upcomingClasses)}">
+                        <td colspan="5" style="color: var(--text-muted);">No scheduled classes yet.</td>
+                    </tr>
+                    <tr th:each="cls : ${upcomingClasses}">
+                        <td><strong th:text="${cls.title}">Class</strong></td>
+                        <td th:text="${cls.instructorName}">Instructor</td>
+                        <td th:text="${#temporals.format(cls.startsAt, 'MMM d, yyyy HH:mm')}">Date</td>
+                        <td th:text="${cls.capacity}">20</td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${cls.status == 'SCHEDULED'} ? ' badge-active' : ' badge-frozen'"
+                                  th:text="${cls.status}">SCHEDULED</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h2 style="font-size: 1.1rem; margin: 0;">Recent Bookings</h2>
+                <a th:href="@{/bookings}" style="font-size: 0.9rem; color: #ef4444; text-decoration: none;">View all bookings →</a>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Member</th>
+                        <th>Class</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(recentBookings)}">
+                        <td colspan="3" style="color: var(--text-muted);">No bookings recorded yet.</td>
+                    </tr>
+                    <tr th:each="b : ${recentBookings}">
+                        <td th:text="${b.member.fullName}">Member</td>
+                        <td th:text="${b.classInstance.title}">Class</td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${b.status == 'CONFIRMED'} ? ' badge-active' : ' badge-frozen'"
+                                  th:text="${b.status}">CONFIRMED</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </main>
 </body>
 </html>

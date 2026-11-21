@@ -7,7 +7,6 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <div>
             <div class="brand">
@@ -29,7 +28,6 @@
         </div>
     </aside>
 
-    <!-- Main Form Content -->
     <main class="content-area">
         <div class="page-header">
             <span class="page-subtitle">CLASS INSTANCE</span>
@@ -37,7 +35,6 @@
             <p style="color:var(--text-muted);">Add a session from an existing class template.</p>
         </div>
 
-        <!-- Global Validation Error Banner -->
         <div th:if="${#fields.hasErrors('${classInstance.*}')}" class="flash-banner flash-error">
             <span>&#10060; Please correct the fields below before saving this class.</span>
         </div>
@@ -48,7 +45,7 @@
                     <label class="form-label">Class template *</label>
                     <select class="form-select" th:field="*{classTemplateId}">
                         <option value="">Select a template...</option>
-                        <option th:each="tpl : ${templates}" th:value="${tpl.id}" th:text="${tpl.name}"></option>
+                        <option th:each="tpl : ${templates}" th:value="${tpl.id}" th:text="${tpl.title}"></option>
                     </select>
                 </div>
 

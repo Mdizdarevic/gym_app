@@ -39,8 +39,8 @@
         </div>
 
         <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-            <span class="badge badge-active">3 active tiers</span>
-            <span class="badge badge-frozen">1 archived</span>
+            <span class="badge badge-active" th:text="${activePlanCount + ' active tiers'}">0 active tiers</span>
+            <span class="badge badge-frozen" th:text="${#lists.size(memberships) + ' total memberships'}">0 total memberships</span>
         </div>
 
         <table class="data-table">
@@ -49,35 +49,22 @@
                     <th>Plan Name</th>
                     <th>Billing Interval</th>
                     <th>Price</th>
-                    <th>Active Subscribers</th>
                     <th>Status</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><strong>Unlimited monthly</strong></td>
-                    <td>Monthly</td>
-                    <td>$89.00</td>
-                    <td>142</td>
-                    <td><span class="badge badge-active">Active</span></td>
-                    <td style="text-align: right; color: var(--text-muted); cursor: pointer;">•••</td>
+                <tr th:if="${#lists.isEmpty(plans)}">
+                    <td colspan="4" style="color: var(--text-muted);">No active membership plans found.</td>
                 </tr>
-                <tr>
-                    <td><strong>Student Flex</strong></td>
-                    <td>Monthly</td>
-                    <td>$59.00</td>
-                    <td>64</td>
-                    <td><span class="badge badge-active">Active</span></td>
-                    <td style="text-align: right; color: var(--text-muted); cursor: pointer;">•••</td>
-                </tr>
-                <tr>
-                    <td><strong>Weekend Pass</strong></td>
-                    <td>Weekly</td>
-                    <td>$25.00</td>
-                    <td>12</td>
-                    <td><span class="badge badge-frozen">Archived</span></td>
-                    <td style="text-align: right; color: var(--text-muted); cursor: pointer;">•••</td>
+                <tr th:each="plan : ${plans}">
+                    <td><strong th:text="${plan.name}">Plan</strong></td>
+                    <td th:text="${plan.billingInterval}">Monthly</td>
+                    <td th:text="${'$' + #numbers.formatDecimal(plan.priceCents / 100.0, 1, 2)}">$0.00</td>
+                    <td>
+                        <span class="badge"
+                              th:classappend="${plan.active} ? ' badge-active' : ' badge-frozen'"
+                              th:text="${plan.active} ? 'Active' : 'Inactive'">Active</span>
+                    </td>
                 </tr>
             </tbody>
         </table>

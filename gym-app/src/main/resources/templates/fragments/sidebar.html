@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="sidebar(activeNav)" aria-label="Primary Navigation">
+    <ul>
+        <li><a th:href="@{/}" th:aria-current="${activeNav == 'overview'} ? 'page' : null">Overview</a></li>
+        <li><a th:href="@{/profile}" th:aria-current="${activeNav == 'profile'} ? 'page' : null">Profile</a></li>
+        <li><a th:href="@{/classes}" th:aria-current="${activeNav == 'classes'} ? 'page' : null">Classes</a></li>
+        <li><a th:href="@{/bookings}" th:aria-current="${activeNav == 'bookings'} ? 'page' : null">Bookings</a></li>
+        <li><a th:href="@{/memberships}" th:aria-current="${activeNav == 'memberships'} ? 'page' : null">Memberships</a></li>
+        <li><a th:href="@{/feedback-ai}" th:aria-current="${activeNav == 'feedback-ai'} ? 'page' : null">Feedback AI</a></li>
+    </ul>
+</nav>
+</body>
+</html>
